@@ -9,10 +9,11 @@ https://docs.djangoproject.com/en/6.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/6.0/ref/settings/
 """
-
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
+DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
@@ -25,7 +26,7 @@ SECRET_KEY = "django-insecure-j$98id(r%(rt@+d7##*u9e^@!^stktz7-%$8*ry&36^48+2&w4
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['sanskrutishinde1011.pythonanywhere.com']
 
 
 # Application definition
@@ -116,7 +117,12 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
-STATIC_URL = "static/"
+STATIC_URL = "/static/"
+STATIC_ROOT = BASE_DIR / "staticfiles"
+
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+]
 
 LOGIN_REDIRECT_URL = 'dashboard'
 LOGOUT_REDIRECT_URL = 'login'
