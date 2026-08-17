@@ -34,6 +34,7 @@ ALLOWED_HOSTS = ['sanskrutishinde1011.pythonanywhere.com']
 INSTALLED_APPS = [
     'accounts',
     'about',
+    'projects',
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",

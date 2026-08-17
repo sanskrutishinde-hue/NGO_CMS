@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Our Projects</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f5f7fa;
+        }
+
+        .header {
+            text-align: center;
+            padding: 40px 20px;
+            background: #2c6e91;
+            color: white;
+        }
+
+        .header h1 {
+            margin: 0 0 10px;
+            font-size: 36px;
+        }
+
+        .header p {
+            margin: 0;
+            font-size: 17px;
+        }
+
+        .filters {
+            text-align: center;
+            padding: 25px;
+        }
+
+        .filters a {
+            display: inline-block;
+            margin: 5px;
+            padding: 10px 20px;
+            text-decoration: none;
+            background: #2c6e91;
+            color: white;
+            border-radius: 5px;
+        }
+
+        .projects-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            padding: 30px;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .project-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.12);
+        }
+
+        .project-card img {
+            width: 100%;
+            height: 210px;
+            object-fit: cover;
+        }
+
+        .project-content {
+            padding: 20px;
+        }
+
+        .project-content h2 {
+            margin-top: 0;
+            color: #2c6e91;
+        }
+
+        .status {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 15px;
+            background: #e8f1f5;
+            margin-bottom: 10px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .location {
+            color: #666;
+        }
+
+        .no-projects {
+            text-align: center;
+            padding: 50px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="header">
+    <h1>Our Projects</h1>
+    <p>Explore our initiatives and the communities we support.</p>
+</div>
+
+<div class="filters">
+    <a href="{% url 'project_list' %}">All Projects</a>
+
+    <a href="?status=Ongoing">Ongoing</a>
+
+    <a href="?status=Completed">Completed</a>
+
+    <a href="?status=Upcoming">Upcoming</a>
+</div>
+
+{% if projects %}
+
+<div class="projects-container">
+
+    {% for project in projects %}
+
+    <div class="project-card">
+
+        {% with project.images.first as project_image %}
+            {% if project_image %}
+                <img src="{{ project_image.image.url }}"
+                     alt="{{ project.title }}">
+            {% endif %}
+        {% endwith %}
+
+        <div class="project-content">
+
+            <h2>{{ project.title }}</h2>
+
+            <div class="status">
+                {{ project.status }}
+            </div>
+
+            <p>
+                {{ project.description }}
+            </p>
+
+            {% if project.location %}
+                <p class="location">
+                    📍 {{ project.location }}
+                </p>
+            {% endif %}
+           <a href="{% url 'project_detail' project.pk %}"
+   style="
+       display: inline-block;
+       margin-top: 15px;
+       padding: 10px 18px;
+       background: #2c6e91;
+       color: white;
+       text-decoration: none;
+       border-radius: 5px;
+   ">
+    Learn More →
+</a> 
+
+        </div>
+
+    </div>
+
+    {% endfor %}
+
+</div>
+
+{% else %}
+
+<div class="no-projects">
+    <p>No projects found.</p>
+</div>
+
+{% endif %}
+
+</body>
+</html>

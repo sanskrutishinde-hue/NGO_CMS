@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{{ project.title }}</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f5f7fa;
+        }
+
+        .header {
+            text-align: center;
+            padding: 40px 20px;
+            background: #2c6e91;
+            color: white;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 36px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+
+        .project-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.12);
+        }
+
+        .project-image {
+            width: 100%;
+            max-height: 500px;
+            object-fit: cover;
+        }
+
+        .content {
+            padding: 30px;
+        }
+
+        .content h2 {
+            color: #2c6e91;
+            font-size: 30px;
+        }
+
+        .status {
+            display: inline-block;
+            padding: 7px 14px;
+            border-radius: 15px;
+            background: #e8f1f5;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .description {
+            font-size: 18px;
+            line-height: 1.6;
+        }
+
+        .details {
+            margin-top: 25px;
+            line-height: 1.8;
+        }
+
+        .back-button {
+            display: inline-block;
+            margin-top: 25px;
+            padding: 10px 20px;
+            background: #2c6e91;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        .additional-images {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .additional-images img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="header">
+    <h1>{{ project.title }}</h1>
+</div>
+
+<div class="container">
+
+    <div class="project-card">
+
+        {% with project.images.first as project_image %}
+            {% if project_image %}
+                <img
+                    src="{{ project_image.image.url }}"
+                    alt="{{ project.title }}"
+                    class="project-image"
+                >
+            {% endif %}
+        {% endwith %}
+
+        <div class="content">
+
+            <h2>{{ project.title }}</h2>
+
+            <div class="status">
+                {{ project.status }}
+            </div>
+
+            <p class="description">
+                {{ project.description }}
+            </p>
+
+            <div class="details">
+
+                {% if project.location %}
+                    <p>
+                        <strong>📍 Location:</strong>
+                        {{ project.location }}
+                    </p>
+                {% endif %}
+                
+
+                {% if project.start_date %}
+                    <p>
+                        <strong>📅 Start Date:</strong>
+                        {{ project.start_date }}
+                    </p>
+                {% endif %}
+
+                {% if project.end_date %}
+                    <p>
+                        <strong>📅 End Date:</strong>
+                        {{ project.end_date }}
+                    </p>
+                {% endif %}
+
+            </div>
+
+            <div class="additional-images">
+
+                {% for project_image in project.images.all %}
+
+                    <img
+                        src="{{ project_image.image.url }}"
+                        alt="{{ project.title }}"
+                    >
+
+                {% endfor %}
+
+            </div>
+
+            <a href="{% url 'project_list' %}" class="back-button">
+                ← Back to Projects
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>
